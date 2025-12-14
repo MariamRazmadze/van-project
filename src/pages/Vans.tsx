@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Spin, Card, Row, Col, Typography, Tag } from "antd";
 import type { Van } from "../types/van";
 
@@ -20,14 +21,7 @@ export default function Vans() {
 
   if (loading) {
     return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          minHeight: 400,
-        }}
-      >
+      <div className="flex justify-center items-center min-h-[400px]">
         <Spin size="large" />
       </div>
     );
@@ -42,25 +36,20 @@ export default function Vans() {
       <Row gutter={[48, 48]}>
         {vans.map((van) => (
           <Col xs={24} md={12} lg={8} key={van.id}>
-            <Card
-              hoverable
-              cover={
-                <img
-                  alt={van.name}
-                  src={van.imageUrl}
-                  style={{ height: 256, objectFit: "cover" }}
-                />
-              }
-              style={{ boxShadow: "none" }}
-            >
-              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "start",
-                    justifyContent: "space-between",
-                  }}
-                >
+            <Link to={`/vans/${van.id}`} className="no-underline">
+              <Card
+                hoverable
+                cover={
+                  <img
+                    alt={van.name}
+                    src={van.imageUrl}
+                    className="h-64 object-cover"
+                  />
+                }
+                style={{ boxShadow: "none" }}
+              >
+              <div className="flex flex-col gap-2">
+                <div className="flex items-start justify-between">
                   <Title level={4} style={{ margin: 0, fontWeight: 500 }}>
                     {van.name}
                   </Title>
@@ -85,6 +74,7 @@ export default function Vans() {
                 </div>
               </div>
             </Card>
+            </Link>
           </Col>
         ))}
       </Row>
