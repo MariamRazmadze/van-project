@@ -2,7 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Typography, Button, Tag, Image, Spin } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
-import type { Van } from "../types/van";
+import type { Van } from "../../types/van";
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -40,7 +40,11 @@ export default function VanDetail() {
   return (
     <div className="max-w-4xl mx-auto px-6 lg:px-8 py-20">
       <Link to="/vans" className="no-underline">
-        <Button type="text" icon={<ArrowLeftOutlined />} style={{ marginBottom: 32 }}>
+        <Button
+          type="text"
+          icon={<ArrowLeftOutlined />}
+          style={{ marginBottom: 32 }}
+        >
           Back to vans
         </Button>
       </Link>

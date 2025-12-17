@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Spin, Card, Row, Col, Typography, Tag } from "antd";
-import type { Van } from "../types/van";
+import type { Van } from "../../types/van";
 
 const { Title, Text } = Typography;
 
@@ -48,32 +48,32 @@ export default function Vans() {
                 }
                 style={{ boxShadow: "none" }}
               >
-              <div className="flex flex-col gap-2">
-                <div className="flex items-start justify-between">
-                  <Title level={4} style={{ margin: 0, fontWeight: 500 }}>
-                    {van.name}
-                  </Title>
-                  <Tag
-                    style={{
-                      textTransform: "uppercase",
-                      fontSize: "0.75rem",
-                      border: 0,
-                      background: "#f3f4f6",
-                    }}
-                  >
-                    {van.type}
-                  </Tag>
+                <div className="flex flex-col gap-2">
+                  <div className="flex items-start justify-between">
+                    <Title level={4} style={{ margin: 0, fontWeight: 500 }}>
+                      {van.name}
+                    </Title>
+                    <Tag
+                      style={{
+                        textTransform: "uppercase",
+                        fontSize: "0.75rem",
+                        border: 0,
+                        background: "#f3f4f6",
+                      }}
+                    >
+                      {van.type}
+                    </Tag>
+                  </div>
+                  <div>
+                    <Text style={{ fontSize: "1.5rem", fontWeight: 300 }}>
+                      ${van.price}
+                    </Text>
+                    <Text type="secondary" style={{ fontSize: "1rem" }}>
+                      /day
+                    </Text>
+                  </div>
                 </div>
-                <div>
-                  <Text style={{ fontSize: "1.5rem", fontWeight: 300 }}>
-                    ${van.price}
-                  </Text>
-                  <Text type="secondary" style={{ fontSize: "1rem" }}>
-                    /day
-                  </Text>
-                </div>
-              </div>
-            </Card>
+              </Card>
             </Link>
           </Col>
         ))}

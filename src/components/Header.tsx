@@ -7,7 +7,9 @@ export default function Header() {
   const location = useLocation();
 
   const selectedKey =
-    location.pathname === "/about"
+    location.pathname === "/host"
+      ? "host"
+      : location.pathname === "/about"
       ? "about"
       : location.pathname === "/vans"
       ? "vans"
@@ -34,6 +36,10 @@ export default function Header() {
           selectedKeys={[selectedKey]}
           style={{ border: 0, background: "transparent", minWidth: 200 }}
           items={[
+            {
+              key: "host",
+              label: <Link to="/host">Host</Link>,
+            },
             {
               key: "about",
               label: <Link to="/about">About</Link>,
