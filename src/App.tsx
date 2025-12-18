@@ -9,6 +9,7 @@ import AppLayout from "./components/AppLayout";
 import Income from "./pages/Host/Income";
 import Reviews from "./pages/Host/Reviews";
 import HostLayout from "./components/HostLayout";
+import Dashboard from "./pages/Host/Dashboard";
 
 function App() {
   return (
@@ -31,14 +32,15 @@ function App() {
     >
       <BrowserRouter>
         <Routes>
-          <Route element={<AppLayout />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/vans" element={<Vans />} />
-            <Route path="/vans/:id" element={<VanDetail />} />
-            <Route path="/host" element={<HostLayout />}>
-              <Route path="/host/income" element={<Income />} />
-              <Route path="/host/reviews" element={<Reviews />} />
+          <Route path="/" element={<AppLayout />}>
+            <Route index element={<Home />} />
+            <Route path="about" element={<About />} />
+            <Route path="vans" element={<Vans />} />
+            <Route path="vans/:id" element={<VanDetail />} />
+            <Route path="host" element={<HostLayout />}>
+              <Route index element={<Dashboard />} />
+              <Route path="income" element={<Income />} />
+              <Route path="reviews" element={<Reviews />} />
             </Route>
           </Route>
         </Routes>
