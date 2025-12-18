@@ -8,6 +8,8 @@ export default function HostLayout() {
     ? "income"
     : location.pathname.includes("/reviews")
     ? "reviews"
+    : location.pathname.includes("/vans")
+    ? "vans"
     : "dashboard";
 
   return (
@@ -32,6 +34,10 @@ export default function HostLayout() {
               {
                 key: "income",
                 label: <Link to="/host/income">Income</Link>,
+              },
+              {
+                key: "vans",
+                label: <Link to="/host/vans">Vans</Link>,
               },
               {
                 key: "reviews",
