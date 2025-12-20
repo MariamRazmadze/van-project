@@ -1,16 +1,16 @@
-import { Link, Outlet, useLocation } from "react-router-dom";
-import { Menu } from "antd";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Tabs } from "antd";
 
 export default function HostLayout() {
   const location = useLocation();
+  const navigate = useNavigate();
 
-  const selectedKey = location.pathname.includes("/income")
-    ? "income"
-    : location.pathname.includes("/reviews")
-    ? "reviews"
-    : location.pathname.includes("/vans")
-    ? "vans"
-    : "dashboard";
+  const getActiveKey = () => {
+    if (location.pathname.includes("/income")) return "income";
+    if (location.pathname.includes("/reviews")) return "reviews";
+    if (location.pathname.includes("/vans")) return "vans";
+    return "dashboard";
+  };
 
   return (
     <>
@@ -22,28 +22,34 @@ export default function HostLayout() {
         }}
       >
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
-          <Menu
-            mode="horizontal"
-            selectedKeys={[selectedKey]}
-            style={{ border: 0, background: "transparent" }}
+          <Tabs
+            activeKey={getActiveKey()}
+            onChange={(key) => {
+              if (key === "dashboard") {
+                navigate("/host");
+              } else {
+                navigate(key);
+              }
+            }}
             items={[
               {
                 key: "dashboard",
-                label: <Link to="/host">Dashboard</Link>,
+                label: "Dashboard",
               },
               {
                 key: "income",
-                label: <Link to="/host/income">Income</Link>,
+                label: "Income",
               },
               {
                 key: "vans",
-                label: <Link to="/host/vans">Vans</Link>,
+                label: "Vans",
               },
               {
                 key: "reviews",
-                label: <Link to="/host/reviews">Reviews</Link>,
+                label: "Reviews",
               },
             ]}
+            style={{ marginBottom: 0 }}
           />
         </div>
       </nav>

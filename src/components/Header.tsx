@@ -1,19 +1,18 @@
-import { Link, useLocation } from "react-router-dom";
-import { Layout, Menu } from "antd";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Layout, Tabs } from "antd";
 
 const { Header: AntHeader } = Layout;
 
 export default function Header() {
   const location = useLocation();
+  const navigate = useNavigate();
 
-  const selectedKey =
-    location.pathname === "/host"
-      ? "host"
-      : location.pathname === "/about"
-      ? "about"
-      : location.pathname === "/vans"
-      ? "vans"
-      : "";
+  const getActiveKey = () => {
+    if (location.pathname.startsWith("/host")) return "host";
+    if (location.pathname.startsWith("/about")) return "about";
+    if (location.pathname.startsWith("/vans")) return "vans";
+    return "";
+  };
 
   return (
     <AntHeader
@@ -31,24 +30,24 @@ export default function Header() {
         >
           VANLIFE
         </Link>
-        <Menu
-          mode="horizontal"
-          selectedKeys={[selectedKey]}
-          style={{ border: 0, background: "transparent", minWidth: 200 }}
+        <Tabs
+          activeKey={getActiveKey()}
+          onChange={(key) => navigate(`/${key}`)}
           items={[
             {
               key: "host",
-              label: <Link to="/host">Host</Link>,
+              label: "Host",
             },
             {
               key: "about",
-              label: <Link to="/about">About</Link>,
+              label: "About",
             },
             {
               key: "vans",
-              label: <Link to="/vans">Vans</Link>,
+              label: "Vans",
             },
           ]}
+          style={{ marginBottom: 0 }}
         />
       </div>
     </AntHeader>

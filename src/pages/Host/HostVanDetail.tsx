@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
-import { Typography, Button, Tag, Image, Spin } from "antd";
+import { useParams, Link, Outlet, useNavigate, useLocation } from "react-router-dom";
+import { Typography, Button, Tag, Image, Spin, Tabs } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import type { Van } from "../../types/van";
 
@@ -8,8 +8,17 @@ const { Title, Paragraph, Text } = Typography;
 
 export default function HostVanDetail() {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
   const [currentVan, setCurrentVan] = useState<Van | null>(null);
   const [loading, setLoading] = useState(true);
+
+  const getActiveTab = () => {
+    const path = location.pathname;
+    if (path.endsWith("/pricing")) return "pricing";
+    if (path.endsWith("/photos")) return "photos";
+    return "details";
+  };
 
   useEffect(() => {
     fetch(`/api/host/vans/${id}`)
@@ -89,6 +98,34 @@ export default function HostVanDetail() {
           </Paragraph>
         </div>
       </div>
+
+      <Tabs
+        activeKey={getActiveTab()}
+        onChange={(key) => {
+          if (key === "details") {
+            navigate(".");
+          } else {
+            navigate(key);
+          }
+        }}
+        items={[
+          {
+            key: "details",
+            label: "Details",
+          },
+          {
+            key: "pricing",
+            label: "Pricing",
+          },
+          {
+            key: "photos",
+            label: "Photos",
+          },
+        ]}
+        style={{ marginTop: 32 }}
+      />
+
+      <Outlet />
     </div>
   );
 }
