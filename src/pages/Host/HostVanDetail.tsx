@@ -1,5 +1,11 @@
 import { useState, useEffect } from "react";
-import { useParams, Link, Outlet, useNavigate, useLocation } from "react-router-dom";
+import {
+  useParams,
+  Link,
+  Outlet,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
 import { Typography, Button, Tag, Image, Spin, Tabs } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import type { Van } from "../../types/van";
@@ -125,7 +131,7 @@ export default function HostVanDetail() {
         style={{ marginTop: 32 }}
       />
 
-      <Outlet />
+      <Outlet context={{ currentVan }} />
     </div>
   );
 }
