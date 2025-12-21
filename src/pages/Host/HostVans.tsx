@@ -36,7 +36,7 @@ export default function HostVans() {
       <Row gutter={[48, 48]}>
         {vans.map((van) => (
           <Col xs={24} sm={12} lg={8} key={van.id}>
-            <Link to={`${van.id}`} className="no-underline">
+            <Link to={van.id} className="no-underline">
               <Card
                 hoverable
                 cover={

@@ -1,15 +1,18 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Spin, Card, Row, Col, Typography, Tag } from "antd";
+import { useState, useEffect } from "react";
+import { Link, useSearchParams } from "react-router-dom";
+import { Spin, Card, Row, Col, Typography, Tag, Button } from "antd";
 import type { Van } from "../../types/van";
 
 const { Title, Text } = Typography;
 
 export default function Vans() {
-  const [vans, setVans] = React.useState<Van[]>([]);
-  const [loading, setLoading] = React.useState(true);
+  const [vans, setVans] = useState<Van[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  React.useEffect(() => {
+  const typeFilter = searchParams.get("type");
+
+  useEffect(() => {
     fetch("/api/vans")
       .then((res) => res.json())
       .then((data) => {
@@ -27,16 +30,56 @@ export default function Vans() {
     );
   }
 
+  const displayedVans = typeFilter
+    ? vans.filter((van) => van.type === typeFilter)
+    : vans;
+
   return (
     <div className="max-w-6xl mx-auto px-6 lg:px-8 py-20">
       <Title level={1} style={{ fontWeight: 300, marginBottom: 64 }}>
         Explore our vans
       </Title>
 
+      <div className="flex gap-3 mb-12">
+        <Button
+          type={typeFilter === "simple" ? "primary" : "default"}
+          size="large"
+          onClick={() => setSearchParams({ type: "simple" })}
+        >
+          Simple
+        </Button>
+        <Button
+          type={typeFilter === "luxury" ? "primary" : "default"}
+          size="large"
+          onClick={() => setSearchParams({ type: "luxury" })}
+        >
+          Luxury
+        </Button>
+        <Button
+          type={typeFilter === "rugged" ? "primary" : "default"}
+          size="large"
+          onClick={() => setSearchParams({ type: "rugged" })}
+        >
+          Rugged
+        </Button>
+        {typeFilter && (
+          <Button type="text" size="large" onClick={() => setSearchParams({})}>
+            Clear filters
+          </Button>
+        )}
+      </div>
+
       <Row gutter={[48, 48]}>
-        {vans.map((van) => (
+        {displayedVans.map((van) => (
           <Col xs={24} md={12} lg={8} key={van.id}>
-            <Link to={`/vans/${van.id}`} className="no-underline">
+            <Link
+              to={van.id}
+              className="no-underline"
+              state={{
+                search: `?${searchParams.toString()}`,
+                type: typeFilter,
+              }}
+            >
               <Card
                 hoverable
                 cover={
